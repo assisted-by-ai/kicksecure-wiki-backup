@@ -75,7 +75,7 @@
         <input id="trx-expand" class="expand-checkbox" autocomplete="off" type="checkbox" />
 
         <div class="qr-button">
-          <img class="icon" src="https://www.kicksecure.com/w/images/0/06/Tronix-trx-logo-red.svg" alt="Donate Tronix (TRX) Logo" />
+          <img class="icon" src="/w/images/0/06/Tronix-trx-logo-red.svg" alt="Donate Tronix (TRX) Logo" />
           <span class="name">Tronix</span>
         </div>
 
@@ -100,7 +100,7 @@
         </div>
 
         <div class="expand">
-          <img class="qr-code-image" src="<!--{$etherImgUrl|default:''}-->" />
+          <img class="qr-code-image" src="<!--{$etherImgUrl|default:''}-->" alt="Donate Ethereum (ETH) ERC-20 Token QR Code" />
           <div><a href="ethereum:<!--{$Pay_Ethereum|default:''}-->">Address for all Ethereum (ETH) ERC-20 tokens, e.g. USDC | USDT | DAI and more</a></div>
           <pre><!--{$Pay_Ethereum|default:''}--></pre>
         </div>
@@ -119,7 +119,7 @@
       <a href="/wiki/Donate/PayPal" class="account-info" title="Donate via PayPal">
         No PayPal account required.
       </a>
-      <a href="/wiki/Donate/PayPal#PayPal_versus_Tor" title="Donation via Tor are unsupported." class="account-info">(Tor unsupported.)</a>
+      <a href="/wiki/Donate/PayPal#PayPal_versus_Tor" title="Donations via Tor are unsupported." class="account-info">(Tor unsupported.)</a>
     </div>
 
     <div class="content">
