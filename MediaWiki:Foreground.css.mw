@@ -4,8 +4,8 @@ h1 { font-size: 2.2em;}
 h2 { font-size: 1.8em;}
 h3 { font-size: 1.6em;}
 h4 { font-size: 1.4em;}
-h5 { font-size: 1.5em;}
-h6 { font-size: 1.6em;}
+h5 { font-size: 1.2em;}
+h6 { font-size: 1.0em;}
 }
 table.ambox-notice {
     width:auto;
@@ -66,11 +66,10 @@ h1,h2,h3,h4,h5,h6 {
     max-width: 100%;
 }
 /* Wikitable Reset to Strip out Foundation 5 */
-table { width: auto; }
+table { width: auto; background: transparent; margin-bottom: 1.25em; border: 0; }
 td.mw-label { width: 0; }
 td.smwpropname, th.smwpropname, td.smwspecname { text-align: inherit; }
 table tbody tr td, table tr td { line-height: inherit; }
-table { background: transparent; margin-bottom: 1.25em; border: 0; }
 table thead, table tfoot { background: 0; font-weight: normal; }
 table thead tr th, table thead tr td, table tfoot tr th, table tfoot tr td { padding: 0; font-size: 100%; color: inherit; text-align: inherit; }
 table tr th, table tr td { padding: 0; font-size: 100%; color: inherit; }
@@ -119,7 +118,7 @@ tr.vatop,
 /* Tables in responsive and other breaks */
 @media only screen and (max-width: 768px) {
 table {overflow-x: auto; overflow-y: hidden; display: block; width: auto;}
-table.wikitable {background-color: none; border: none;}
+table.wikitable {background-color: transparent; border: none;}
 /* Give user a method to style a x-axis scrollable table without wrapping cell text */
 .scrollable {overflow: scroll; overflow-y: hidden;}
 .scrollable table {white-space: nowrap; border: 1px solid #eee; border-collapse: separate;}
