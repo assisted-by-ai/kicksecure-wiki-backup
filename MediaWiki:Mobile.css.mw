@@ -1,7 +1,7 @@
 /* source: https://commons.wikimedia.org/wiki/MediaWiki:Mobile.css */
 /* CSS placed here will affect users of the mobile site */
 
-@media screen, handheld {
+@media screen {
 	.com-mobile-handheld-hidden {
 		display: none !important;
 	}
