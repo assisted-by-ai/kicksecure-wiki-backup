@@ -19,9 +19,9 @@
   <!--{/if}-->
   
   <span class="info">
-    <span class="prev">Previous page: <!--{$previousTitle}--></span>
+    <!--{if ! empty( $previousTitle ) }--><span class="prev">Previous page: <!--{$previousTitle}--></span><!--{/if}-->
     <span class="index">Index page: <!--{$indexTitle}--></span>
-    <span class="next">Next page: <!--{$nextTitle}--></span>
+    <!--{if ! empty( $nextTitle ) }--><span class="next">Next page: <!--{$nextTitle}--></span><!--{/if}-->
   </span>
 </span>
 <noinclude>
