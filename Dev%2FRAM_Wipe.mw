@@ -187,7 +187,9 @@ https://forums.whonix.org/t/is-ram-wipe-possible-inside-whonix-cold-boot-attack-
 * [[Dev/RAM Wipe Old Notes|RAM Wipe Archived Development Notes]]
 * [[Cold Boot Attack Defense]]
 * [[ram-wipe|<code>ram-wipe</code> User Documentation]]
-* {{Github_link|repo=ram-wipe|path=}}
+* {{Github_link|
+https://github.com/Kicksecure/ram-wipe
+}}
 * https://github.com/memtest86plus/memtest86plus/discussions/266
 
 = Footnotes=
