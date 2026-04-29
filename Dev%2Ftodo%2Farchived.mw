@@ -3906,9 +3906,7 @@ Mar 14 09:25:49 host sudo[24600]: pam_unix(sudo:session): session closed for use
 ** Not done yet to avoid overcomplicating the PR.
 * ARM_EFI_TARGET: Assume that works similarly, use the new debconf-set-selections method?
 ** Done, actually I just removed ARM_EFI_TARGET entirely.
-* CI testing: {{Github_link|
-https://github.com/Kicksecure/grml-debootstrap/pull/1
-}}
+* CI testing: https://github.com/Kicksecure/grml-debootstrap/pull/1
 * related PR: https://github.com/grml/grml-debootstrap/pull/302
 
 == user-sysmaint-split - Qubes - sysmaint boot features ==
@@ -4030,9 +4028,7 @@ check_passwords() {
 * Patrick: Merged.
 
 == kernel module loading disabling exit zero or non-zero comment ==
-* please comment here: {{Github_link|
-https://github.com/Kicksecure/security-misc/issues/303
-}}
+* please comment here: https://github.com/Kicksecure/security-misc/issues/303
 * Researched and commented.
 
 == Kicksecure default browser ==
@@ -4041,18 +4037,14 @@ https://github.com/Kicksecure/security-misc/issues/303
 ** Aaron: Reorganized some stuff, filled in some missing documentation on projects.
 * https://forums.whonix.org/t/chromium-browser-for-kicksecure-discussions-not-whonix/10388
 ** Aaron: Read through and commented.
-* {{Github_link|
-https://github.com/Kicksecure/security-misc/issues/192
-}}
+* https://github.com/Kicksecure/security-misc/issues/192
 *** Aaron: Read through, didn't have much to add here, I put everything I had to add on the Whonix forum.
 
 == automatic updates wiki editing ==
 * please add notes to, edit [[Dev/Automatic_Updates]]
 ** Only things I could see to add was the bit about Lubuntu Update and a note about making an update notifier that didn't handle update installation. Otherwise this seemed pretty thorough and not in need of further revision at the moment. I think Kicksecure would need something more robust than Lubuntu Update, but that it would still provide somewhere to start for implementing something like this (probably in Python).
 == privleap - umask ==
-* please consider privleap in context of {{Github_link|
-https://github.com/Kicksecure/security-misc/issues/185
-}}
+* please consider privleap in context of https://github.com/Kicksecure/security-misc/issues/185
 * How to handle privleap versus umask? Leave it to (python) PAM? Probably best.
 * Please lightweight document.
 * Discovered that PAM umask customization was causing problems, by changing the umask of the entire privleapd process (thus affecting even actions that are run as root). Fixed by adding an extra shim between privleapd and PAM. Fixes are in https://github.com/ArrayBolt3/privleap as usual.
@@ -4896,12 +4888,8 @@ echo 'ERROR: This account lacks administrative ("root") capabilities. See: ${pro
 ** Only immediately apparent issue I see is that we still have the bookworm-testers repo specified as the Kicksecure repo to use for the build process, whereas user-sysmaint-split is only available in bookworm-developers. This makes the build fail until the template-kicksecure code repo is manually edited to specify the correct source repo.
 
 == user-sysmaint-split - review helper-scripts ==
-* {{Github_link|
-https://github.com/Kicksecure/helper-scripts/pull/13
-}}
-* {{Github_link|
-https://github.com/Kicksecure/user-sysmaint-split/pull/1
-}}
+* https://github.com/Kicksecure/helper-scripts/pull/13
+* https://github.com/Kicksecure/user-sysmaint-split/pull/1
 * Reviews complete and PRs were merged.
 
 == privleap - compare what privleap is doing versus sudo and doas regarding environment ==
@@ -5270,9 +5258,7 @@ Replace
 *** Aaron: Done.
 ** Please exclude new image builds from this migration code. If folder /var/lib/permission-hardener does not exist, there is no need for the migration code to run.
 *** Aaron: Done, by checking for the existence of the old-style <code>/var/lib/permission-hardener</code> directory.
-* PR with all changes integrated: {{Github_link|
-https://github.com/Kicksecure/security-misc/pull/295
-}}
+* PR with all changes integrated: https://github.com/Kicksecure/security-misc/pull/295
 
 == user-sysmaint-split - shutdown action - #2 ==
 * a systemd unit to lock the sysmaint account on shutdown
@@ -5348,18 +5334,10 @@ zsh: exit 1     sudo apt update
 
 == document ARP related sysctl changes ==
 * please create a [[networking]] wiki page
-* {{Github_link|
-https://github.com/Kicksecure/security-misc/pull/288
-}}
-* {{Github_link|
-https://github.com/Kicksecure/security-misc/pull/289
-}}
-* {{Github_link|
-https://github.com/Kicksecure/security-misc/pull/290
-}}
-* {{Github_link|
-https://github.com/Kicksecure/security-misc/pull/291
-}}
+* https://github.com/Kicksecure/security-misc/pull/288
+* https://github.com/Kicksecure/security-misc/pull/289
+* https://github.com/Kicksecure/security-misc/pull/290
+* https://github.com/Kicksecure/security-misc/pull/291
 * Created, also tested <code>arp_ignore</code>'s effects on a common virtualization use case.
 
 == permission-hardener - usrmerge ==
@@ -5384,9 +5362,7 @@ https://github.com/Kicksecure/security-misc/pull/291
 ** Apply the built, policy-enhanced state to the filesystem's active state. For each file in the state array, delete the file's entry in dpkg-statoverride, then change the file's actual state to match the state array (again using dpkg-statoverride to do this)
 ** To undo a policy for a file, load the state file, wipe the dpkg-statoverride entry for it, and then apply the stored state to the real file.
 * Ready for review: https://github.com/ArrayBolt3/security-misc/tree/arraybolt3/permission-hardener-refactor
-* PR: {{Github_link|
-https://github.com/Kicksecure/security-misc/pull/293
-}}
+* PR: https://github.com/Kicksecure/security-misc/pull/293
 
 == user-admin-split - installer sysmaint support ==
 * context: [[Linux]]
@@ -5394,9 +5370,7 @@ https://github.com/Kicksecure/security-misc/pull/293
 * improve privilege escalation tool detection
 * sudo -u user
 * keep unrestricted admin mode / "normal" Linux distribution compatibility
-** PR with the bulk of the changes: {{Github_link|
-https://github.com/Kicksecure/usability-misc/pull/13
-}}
+** PR with the bulk of the changes: https://github.com/Kicksecure/usability-misc/pull/13
 ** Sudoers exception needed to make the above work in sysmaint session: https://github.com/ArrayBolt3/user-sysmaint-split/tree/arraybolt3/dist-installer-sysmaint
 
 == user-sysmaint-split - Wayland support ==
@@ -5761,16 +5735,12 @@ https://github.com/Kicksecure/dist-base-files/commit/e4ba4e8ffc43f5ec3326c742bf8
 * Added some more ideas, including thoughts for server support. I don't think we need a todo chapter since this dev/todo document works as that.
 
 == review USBGuard pull request ==
-* {{Github_link|
-https://github.com/Kicksecure/security-misc/pull/166
-}}
+* https://github.com/Kicksecure/security-misc/pull/166
 * https://usb-ids.gowdy.us/read/UC/
 * Reviewed PR, requested changes, did some simple tests to make sure it didn't cause major issues.
 
 == review ARP related network settings ==
-* {{Github_link|
-https://github.com/Kicksecure/security-misc/pull/279
-}}
+* https://github.com/Kicksecure/security-misc/pull/279
 * Reviewed, can document if desirable
 
 == document sysmaint warnings in wiki ==
@@ -6248,9 +6218,7 @@ N: Download is performed unsandboxed as root as file '/root/localrepos/kicksecur
 
 == implement umask hardening ==
 * as discussed
-* PR: {{Github_link|
-https://github.com/Kicksecure/security-misc/pull/282
-}}
+* PR: https://github.com/Kicksecure/security-misc/pull/282
 
 == grep review harden pkexec ==
 * please grep all source code for pkexec and review
@@ -6269,12 +6237,8 @@ Ok?
 * please research, find solutions for umask
 * this is in preparation of
 * https://forums.whonix.org/t/change-default-umask/7416
-* {{Github_link|
-https://github.com/Kicksecure/security-misc/pull/18
-}}
-* {{Github_link|
-https://github.com/Kicksecure/security-misc/issues/185
-}}
+* https://github.com/Kicksecure/security-misc/pull/18
+* https://github.com/Kicksecure/security-misc/issues/185
 
 pam_umask.so debug umask=027
 
@@ -6285,9 +6249,7 @@ run a script, if root, do nothing, otherwise set umask
 
         replace with pam_exec?
 
-* Research recorded at {{Github_link|
-https://github.com/Kicksecure/security-misc/issues/185#issuecomment-2492614076,
-}} still discussing if this is something we want to do or not.
+* Research recorded at https://github.com/Kicksecure/security-misc/issues/185#issuecomment-2492614076, still discussing if this is something we want to do or not.
 * Investigate how ssh opens a session and how to set umask there
 ** Answer: The default umask set by OpenSSH is whatever umask it is launched with but with world and group write permissions disabled (so newly created files don't end up world-writable or group-writable by accident). If the user is entering an interactive SSH session, a login shell is launched, otherwise the command the user specifies is run using the user's default shell and a <code>-c</code> argument. If we want to configure the umask for all commands, we will have to set it via a shell launch script that runs even on non-login shells (i.e. bashrc or zshrc). If only login shells need configured, a profile script should suffice. There does not appear to be a configuration setting in OpenSSH for setting a umask outside of these mechanisms, the umask override for disabling world write and group write bits is hardcoded.
 
@@ -7093,9 +7055,7 @@ lb build --verbose --debug
 * live-build fork: https://salsa.debian.org/ArrayBolt3/live-build/-/tree/arraybolt3/lb-dracut?ref_type=heads
 ** All changes submitted upstream, TODO work with upstream to get these polished and merged
 * derivative-maker fork with live-build support: https://github.com/ArrayBolt3/derivative-maker/tree/arraybolt3/live-build
-* PR: {{Github_link|
-https://github.com/Kicksecure/derivative-maker/pull/2
-}}
+* PR: https://github.com/Kicksecure/derivative-maker/pull/2
 
 == Whonix grub-theme ==
 * similar to above

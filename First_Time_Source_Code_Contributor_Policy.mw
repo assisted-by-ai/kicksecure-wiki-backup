@@ -97,9 +97,7 @@ This is a common issue:
 == Illustrative Examples ==
 Pull requests that were minimal and required no prior communication:
 
-* {{Github_link|
-https://github.com/Kicksecure/legacy-dist/pull/1
-}}
+* [https://github.com/Kicksecure/legacy-dist/pull/1 Remove deborphan]
 
 == Good First Issues ==
 

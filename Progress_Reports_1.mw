@@ -4370,9 +4370,7 @@ Tested a fix for the installation of <code>/etc/apt/sources.list.d/debian.list</
 === Prepare to split security-misc into shared, desktop, and server packages ===
 Date: 2024-11-10
 
-As discussed at {{Github_link|
-https://github.com/Kicksecure/security-misc/issues/187
-}}. Looked at all files in security-misc, and categorized them into shared, desktop, and server categories, with rationale for each choice. Currently available for discussion at https://forums.kicksecure.com/t/splitting-security-misc-into-shared-desktop-and-server-packages/674, will implement once consensus is reached.
+As discussed at https://github.com/Kicksecure/security-misc/issues/187. Looked at all files in security-misc, and categorized them into shared, desktop, and server categories, with rationale for each choice. Currently available for discussion at https://forums.kicksecure.com/t/splitting-security-misc-into-shared-desktop-and-server-packages/674, will implement once consensus is reached.
 
 === File Calamares feature request for specifying filesystem restrictions ===
 Date: 2024-11-10
@@ -5117,9 +5115,7 @@ Got an ISO to build properly after some fiddling, then tested xdg-desktop-portal
 * Clicking Menu > Settings > scroll to Files and Applications > click "Browse..." next to Downloads
 * Running <code>systemctl --user status xdg-desktop-portal</code> and <code>systemctl --user status xdg-desktop-portal-gtk</code> while the portal window was shown - this showed that the portal WAS running
 
-Added needed packages (along with an ISO build failure fix) to kicksecure-meta-packages. PR: {{Github_link|
-https://github.com/Kicksecure/kicksecure-meta-packages/pull/1
-}}
+Added needed packages (along with an ISO build failure fix) to kicksecure-meta-packages. PR: https://github.com/Kicksecure/kicksecure-meta-packages/pull/1
 
 == 2024-09-23 ==
 
@@ -8130,9 +8126,7 @@ https://github.com/QubesOS/qubes-builder-debian/pull/84
 
 - Updated sdwdate mirrrors
 
-{{Github_link|
 https://github.com/Kicksecure/sdwdate/pull/49/commits/4d50ebc128d26f2d5cd36e096d8d537456400083
-}}
 
 https://forums.whonix.org/t/suggest-trustworthy-tor-hidden-services-as-time-sources-for-sdwdate/856/243
 
@@ -8390,13 +8384,9 @@ https://forums.whonix.org/t/virt-gtk-experimental-alternative-to-virt-manager-be
 
 Github:
 
-{{Github_link|
 https://github.com/Kicksecure/libvirt-dist/pull/111#event-13893986296
-}}
 
-{{Github_link|
 https://github.com/Kicksecure/libvirt-dist/pull/112#event-13893984607
-}}
 
 === 13 - 15/18/2024 ===
 - Migrated https://www.whonix.org/wiki/Spectre_Meltdown to Kicksecure wiki
@@ -8573,9 +8563,7 @@ https://github.com/flathub/org.xfce.mousepad/issues/48
 
 https://github.com/QubesOS/qubes-issues/issues/9152
 
-{{Github_link|
 https://github.com/Kicksecure/sdwdate/pull/48
-}}
 
 === 26/2 - 14/3/2024 ===
 - Tested whonix, kicksecure releases
@@ -8810,9 +8798,7 @@ OFF
 * Retesting page /Testing for vbox
 * Reporting discourse nojs issue
 
-{{Github_link|
 https://github.com/Kicksecure/anon-apt-sources-list/pull/1
-}}
 
 https://github.com/QubesOS/qubes-issues/issues/8413
 
@@ -9922,9 +9908,7 @@ https://www.whonix.org/wiki/Stable_Release (Partial)
 
 Fixed and improved sdwdate onion mirrors:
 
-{{Github_link|
 https://github.com/Kicksecure/sdwdate/pull/45
-}}
 
 === 17/11/2022 ===
 Fixed/Reviewed links and/or Improved text:
@@ -10049,12 +10033,8 @@ https://www.kicksecure.com/wiki/Design#General_Developer_Pages
 * Discovering the issue of unable to connect to hidden services with I2P TB modifications https://forums.whonix.org/t/i2p-integration/4981/347
 * Added more hardening patches to i2p.router https://github.com/Whonix/anon-apps-config/pull/7
 * Discovered sdwdate mirror issue so i removed it and added another one
-** {{Github_link|
-https://github.com/Kicksecure/sdwdate/pull/43
-}}
-** {{Github_link|
-https://github.com/Kicksecure/sdwdate/pull/44
-}}
+** https://github.com/Kicksecure/sdwdate/pull/43
+** https://github.com/Kicksecure/sdwdate/pull/44
 * Fixed wiki links:
 ** https://www.kicksecure.com/wiki/Security_Roadmap
 ** https://www.kicksecure.com/wiki/Dev/Permanent_Takedown_Attack_Defender

@@ -516,9 +516,7 @@ security-misc
 = selinux =
 {{Community_Support|scope=chapter}}
 
-* {{Github_link|
-https://github.com/Kicksecure/security-misc/pull/100
-}}
+* https://github.com/Kicksecure/security-misc/pull/100
 * https://forums.whonix.org/t/restrict-hardware-information-to-root/7329/88
 
 = Debugging =

@@ -442,15 +442,9 @@ User documentation: [[umask]]
 Discussions:
 
 * https://forums.whonix.org/t/change-default-umask/7416
-* {{Github_link|
-https://github.com/Kicksecure/security-misc/issues/185
-}}
-* {{Github_link|
-https://github.com/Kicksecure/security-misc/pull/194
-}}
-* {{Github_link|
-https://github.com/Kicksecure/security-misc/pull/282
-}}
+* https://github.com/Kicksecure/security-misc/issues/185
+* https://github.com/Kicksecure/security-misc/pull/194
+* https://github.com/Kicksecure/security-misc/pull/282
 
 {{sdebian
 |link=https://www.debian.org/doc/manuals/securing-debian-manual/ch04s11.en.html#idm1514
