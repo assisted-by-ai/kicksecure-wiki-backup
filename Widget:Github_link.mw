@@ -1,46 +1,99 @@
 <span class="github-link-widget">
   <img src="/w/images/a/af/Github-mark.svg" width="14" height="16" alt="GitHub Logo" />
-  
+
   <!--{if ! isset( $url ) || $url == '' }-->
-    <code>github-link-widget-no-url-given</code>
+    <code class="github-link-widget-error">github-link-widget-no-url-given</code>
   <!--{else}-->
     <!--{* Normalize trailing slash *}-->
     <!--{assign var="normalized_url" value=$url|regex_replace:'/\/$/' : ''}-->
-  
-    <!--{* Case 1: Testing for url being a file *}-->
+
+    <!--{* Common: extract owner and repo for any /owner/repo/... URL.
+            Safe to compute upfront because all repo-scoped cases below need them;
+            user-profile case extracts its own value. *}-->
+    <!--{assign var="username" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/([^\/]+)\/.*/' : '$1'}-->
+    <!--{assign var="repo" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/([^\/?#]+).*/' : '$1'}-->
+    <!--{assign var="repo_url" value="https://github.com/`$username`/`$repo`"}-->
+
+    <!--{* Case: file (blob/tree/raw + branch + path) *}-->
     <!--{assign var="test_url" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/(blob|tree|raw)\/[^\/]+\/.+$/' : '@FILE'}-->
-    
     <!--{if $test_url == '@FILE'}-->
-      <!--{assign var="username" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/([^\/]+)\/.*/' : '$1'}-->
-      <!--{assign var="repo" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/([^\/]+)\/.*/' : '$1'}-->
+      <!--{assign var="file_type" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/(blob|tree|raw)\/.*$/' : '$1'}-->
       <!--{assign var="path" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/(?:blob|tree|raw)\/[^\/]+\//' : ''}-->
-    
-      <a href="https://github.com/<!--{$username|escape:'html'}-->/<!--{$repo|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub repository"><code><!--{$repo|escape:'html'}--></code></a>
+      <!--{* Strip ?query and #fragment from displayed path; full URL still used for href. *}-->
+      <!--{assign var="path_display" value=$path|regex_replace:'/[?#].*$/' : ''}-->
+
+      <a href="<!--{$repo_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub repository"><code><!--{$repo|escape:'html'}--></code></a>
       |
-      <a href="<!--{$normalized_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub file path"><code>/<!--{$path|escape:'html'}--></code></a>
+      <a href="<!--{$normalized_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub file path"><code>/<!--{$path_display|escape:'html'}--></code></a>
+
+      <!--{* Only emit a raw-link pill when the source is /blob/ (a file). For
+              /tree/ (a directory) GitHub has no /raw/ equivalent and the
+              rewrite would 404; for /raw/ it would be a no-op. *}-->
+      <!--{if $file_type == 'blob'}-->
+        |
+        <a href="<!--{$normalized_url|regex_replace:'/^(https?:\/\/github\.com\/[^\/]+\/[^\/]+\/)blob(\/.*)$/':'$1raw$2'|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub raw file path"><code>raw</code></a>
+      <!--{/if}-->
+
+    <!--{* Case: commit *}-->
+    <!--{elseif ($normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/commit\/[0-9a-fA-F]+.*$/' : '@COMMIT') == '@COMMIT'}-->
+      <!--{assign var="sha_short" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/commit\/([0-9a-fA-F]{1,7})[0-9a-fA-F]*.*/' : '$1'}-->
+      <a href="<!--{$repo_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub repository"><code><!--{$repo|escape:'html'}--></code></a>
       |
-      <a href="<!--{$normalized_url|regex_replace:'/^(https?:\/\/github\.com\/[^\/]+\/[^\/]+\/)(blob|tree)(\/.*)$/':'$1raw$3'|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub raw file path"><code>raw</code></a>
+      <a href="<!--{$normalized_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub commit"><code>@<!--{$sha_short|escape:'html'}--></code></a>
+
+    <!--{* Case: pull request review comment (#discussion_rN) — must come before plain PR *}-->
+    <!--{elseif ($normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/pull\/\d+.*#discussion_r\d+$/' : '@PR_DISCUSSION') == '@PR_DISCUSSION'}-->
+      <!--{assign var="num" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/pull\/(\d+).*/' : '$1'}-->
+      <a href="<!--{$repo_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub repository"><code><!--{$repo|escape:'html'}--></code></a>
+      |
+      <a href="<!--{$normalized_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub pull request review comment"><code>#<!--{$num|escape:'html'}--> review comment</code></a>
+
+    <!--{* Case: pull request comment (#issuecomment-N) — must come before plain PR *}-->
+    <!--{elseif ($normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/pull\/\d+.*#issuecomment-\d+$/' : '@PR_COMMENT') == '@PR_COMMENT'}-->
+      <!--{assign var="num" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/pull\/(\d+).*/' : '$1'}-->
+      <a href="<!--{$repo_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub repository"><code><!--{$repo|escape:'html'}--></code></a>
+      |
+      <a href="<!--{$normalized_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub pull request comment"><code>#<!--{$num|escape:'html'}--> comment</code></a>
+
+    <!--{* Case: pull request *}-->
+    <!--{elseif ($normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/pull\/\d+.*$/' : '@PR') == '@PR'}-->
+      <!--{assign var="num" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/pull\/(\d+).*/' : '$1'}-->
+      <a href="<!--{$repo_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub repository"><code><!--{$repo|escape:'html'}--></code></a>
+      |
+      <a href="<!--{$normalized_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub pull request"><code>#<!--{$num|escape:'html'}--></code></a>
+
+    <!--{* Case: issue comment (#issuecomment-N) — must come before plain issue *}-->
+    <!--{elseif ($normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/issues\/\d+.*#issuecomment-\d+$/' : '@ISSUE_COMMENT') == '@ISSUE_COMMENT'}-->
+      <!--{assign var="num" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/issues\/(\d+).*/' : '$1'}-->
+      <a href="<!--{$repo_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub repository"><code><!--{$repo|escape:'html'}--></code></a>
+      |
+      <a href="<!--{$normalized_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub issue comment"><code>#<!--{$num|escape:'html'}--> comment</code></a>
+
+    <!--{* Case: issue *}-->
+    <!--{elseif ($normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/issues\/\d+.*$/' : '@ISSUE') == '@ISSUE'}-->
+      <!--{assign var="num" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/issues\/(\d+).*/' : '$1'}-->
+      <a href="<!--{$repo_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub repository"><code><!--{$repo|escape:'html'}--></code></a>
+      |
+      <a href="<!--{$normalized_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub issue"><code>#<!--{$num|escape:'html'}--></code></a>
+
+    <!--{* Case: release tag *}-->
+    <!--{elseif ($normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/releases\/tag\/[^\/?#]+.*$/' : '@RELEASE') == '@RELEASE'}-->
+      <!--{assign var="tag" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+\/releases\/tag\/([^\/?#]+).*/' : '$1'}-->
+      <a href="<!--{$repo_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub repository"><code><!--{$repo|escape:'html'}--></code></a>
+      |
+      <a href="<!--{$normalized_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub release"><code>@<!--{$tag|escape:'html'}--></code></a>
+
+    <!--{* Case: repo (catch-all for /owner/repo[/...]) *}-->
+    <!--{elseif ($normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+.*$/' : '@REPO') == '@REPO'}-->
+      <a href="<!--{$normalized_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub repository"><code><!--{$repo|escape:'html'}--></code></a>
+
+    <!--{* Case: user profile (everything starting with github.com/<name>) *}-->
+    <!--{elseif ($normalized_url|regex_replace:'/^https?:\/\/github\.com\/([^\/?#&]+).*$/' : '@USER') == '@USER'}-->
+      <!--{assign var="user_only" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/([^\/?#&]+).*/' : '$1'}-->
+      <a href="<!--{$normalized_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub user profile"><code><!--{$user_only|escape:'html'}--></code></a>
 
     <!--{else}-->
-      <!--{* Case 2: Testing for url being a repo *}-->
-      <!--{assign var="test_url" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/[^\/]+.*$/' : '@REPO'}-->
-      
-      <!--{if $test_url == '@REPO'}-->
-        <!--{assign var="repo" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/[^\/]+\/([^\/]+).*/' : '$1'}-->
-        <a href="<!--{$normalized_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub repository"><code><!--{$repo|escape:'html'}--></code></a>
-
-      <!--{else}-->
-        <!--{* Case 3: Everything starting with github.com interpreted as user profile *}-->
-        <!--{assign var="test_url" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/([^\/\?&#]+).*$/' : '@USER'}-->
-        
-        <!--{if $test_url == '@USER'}-->
-          <!--{assign var="username" value=$normalized_url|regex_replace:'/^https?:\/\/github\.com\/([^\/\?&#]+).*/' : '$1'}-->
-          <a href="<!--{$normalized_url|escape:'html'}-->" target="_blank" rel="noopener" title="GitHub user profile"><code><!--{$username|escape:'html'}--></code></a>
-        
-        <!--{else}-->
-          <code>github-link-widget-no-valid-url</code>
-        <!--{/if}-->
-      <!--{/if}-->
+      <code class="github-link-widget-error">github-link-widget-no-valid-url</code>
     <!--{/if}-->
   <!--{/if}-->
 </span>
