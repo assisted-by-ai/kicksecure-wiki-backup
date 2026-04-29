@@ -530,13 +530,19 @@ Patrick:
 |-
 ! use case id !! use case !! regexp description !! regexp !! replacement !! pages affected / changes ca
 |-
-| 1 || <code><nowiki>https://github.com/[kK]icksecure/repoName/.*</nowiki></code> || ignore href and wikilink, identify repoName and path || (?<!href=")(?<![>\|\[\/])https:\/\/github\.com\/[kK]icksecure\/([^\/\?#]+)(\/[^\s"\]\[<>]*)?(?=(?:\s|["\]\[<>]|$)) || <code><nowiki>{{Github_link|repo=$1|path=$2}}</nowiki></code> || 40+ / 100+
+| 1 || <code><nowiki>https://github.com/[kK]icksecure/repoName/.*</nowiki></code> || ignore href and wikilink, identify repoName and path || (?<!href=")(?<![>\|\[\/])https:\/\/github\.com\/[kK]icksecure\/([^\/\?#]+)(\/[^\s"\]\[<>]*)?(?=(?:\s|["\]\[<>]|$)) || <code><nowiki>{{Github_link|
+https://github.com/Kicksecure/$1$2
+}}</nowiki></code> || 40+ / 100+
 |-
-| 1b || <code><nowiki>[https://github.com/[kK]icksecure/repoName/.* linktext]</nowiki></code> || ignore href and wikilink, identify repoName and path and linktext || \[\s*https:\/\/github\.com\/[[kK]icksecure\/([^\/\s\?#]+)(\/[^\s\]]*)\s+([^\]]+)\] || <code><nowiki>{{Github_link|repo=$1|path=$2|text=$3}}</nowiki></code> || partially completed
+| 1b || <code><nowiki>[https://github.com/[kK]icksecure/repoName/.* linktext]</nowiki></code> || ignore href and wikilink, identify repoName and path and linktext || \[\s*https:\/\/github\.com\/[[kK]icksecure\/([^\/\s\?#]+)(\/[^\s\]]*)\s+([^\]]+)\] || <code><nowiki>{{Github_link|
+https://github.com/Kicksecure/$1$2
+}}</nowiki></code> || partially completed
 |-
 | 2 || <code><nowiki>https://github.com/{{project_name_short}}/repo-name/.*</nowiki></code> || same as 1 || (?<!href=")(?<![\|\[\/])https:\/\/github\.com\/\{\{project_name_short\}\}\/([^\/\?#]+)(\/[^\s"\]\[<>\(\)]*)?(?=(?:\s|["\]\[<>\(\)]|$)) || same as 1 || 55 / 100+
 |-
-| 2b || <code><nowiki>[https://github.com/{{project_name_short}}/repo-name/.* linktext]</nowiki></code> || same as 1b || \[\s*https:\/\/github\.com\/\{\{project_name_short\}\}\/([^\/\s\?#]+)(\/[^\s\]]*)\s+([^\]]+)\] || <code><nowiki>{{Github_link|repo=$1|path=$2|text=$3}}</nowiki></code> ||  47 / 200+
+| 2b || <code><nowiki>[https://github.com/{{project_name_short}}/repo-name/.* linktext]</nowiki></code> || same as 1b || \[\s*https:\/\/github\.com\/\{\{project_name_short\}\}\/([^\/\s\?#]+)(\/[^\s\]]*)\s+([^\]]+)\] || <code><nowiki>{{Github_link|
+https://github.com/Kicksecure/$1$2
+}}</nowiki></code> ||  47 / 200+
 |-
 | || Everything below aborted ↓ || || || ||
 |-
@@ -563,12 +569,16 @@ Currently:
 markdown
 
 <pre>
-{{Github_link|repo=desktop-config-dist|path=/blob/master/usr/share/desktop-config-dist/kanshi-config-template}}
+{{Github_link|
+https://github.com/Kicksecure/desktop-config-dist/blob/master/usr/share/desktop-config-dist/kanshi-config-template
+}}
 </pre>
 
 html
 
-{{Github_link|repo=desktop-config-dist|path=/blob/master/usr/share/desktop-config-dist/kanshi-config-template}}
+{{Github_link|
+https://github.com/Kicksecure/desktop-config-dist/blob/master/usr/share/desktop-config-dist/kanshi-config-template
+}}
 
 ----
 
@@ -584,10 +594,8 @@ https://github.com/Kicksecure/desktop-config-dist/blob/master/usr/share/desktop-
 
 wanted result html:
 
-[https://github.com/Kicksecure/desktop-config-dist/blob/master/usr/share/desktop-config-dist/kanshi-config-template package <code>desktop-config-dist</code>] {{Github_link
-|repo=desktop-config-dist
-|path=/blob/master/usr/share/desktop-config-dist/kanshi-config-template
-|text=file <code>/usr/share/desktop-config-dist/kanshi-config-template</code>
+[https://github.com/Kicksecure/desktop-config-dist/blob/master/usr/share/desktop-config-dist/kanshi-config-template package <code>desktop-config-dist</code>] {{Github_link|
+https://github.com/Kicksecure/desktop-config-dist/blob/master/usr/share/desktop-config-dist/kanshi-config-template
 }}
 
 '''DEV'''
